@@ -1,0 +1,264 @@
+[gd_scene load_steps=18 format=3 uid="uid://bk5a6yo8reju3"]
+
+[ext_resource type="Texture2D" uid="uid://d2cp1ycb3274b" path="res://Assets/tile.png" id="1_oy4es"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="2_hvd10"]
+[ext_resource type="Texture2D" uid="uid://c6hx8tcwhrajt" path="res://Assets/player.png" id="3_ppt0t"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8r25u"]
+texture = ExtResource("1_oy4es")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_pa4ux"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_8r25u")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ghcy0"]
+radius = 6.0
+height = 16.0
+
+[sub_resource type="Animation" id="Animation_erru6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Flip/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_pqje3"]
+resource_name = "fall"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Flip/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_tefit"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Flip/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_ybpuc"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Flip/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_shis6"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Flip/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0np00"]
+_data = {
+"RESET": SubResource("Animation_erru6"),
+"fall": SubResource("Animation_pqje3"),
+"idle": SubResource("Animation_tefit"),
+"jump": SubResource("Animation_ybpuc"),
+"walk": SubResource("Animation_shis6")
+}
+
+[sub_resource type="Animation" id="Animation_ctjtg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Flip/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -9)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Flip/Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_74uh3"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Flip/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.225313, 1),
+"update": 0,
+"values": [Vector2(3.57628e-07, -9), Vector2(-1.90735e-06, -9)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Flip/Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.241484, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.875, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qco2n"]
+resource_name = "squash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Flip/Sprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.3, 1),
+"update": 0,
+"values": [Vector2(0, -6.88125), Vector2(3.57628e-07, -9)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Flip/Sprite2D:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.3, 1),
+"update": 0,
+"values": [Vector2(0.916667, 0.740104), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3p6vn"]
+resource_name = "stretch"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Flip/Sprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(0.535887, 1, 1),
+"update": 0,
+"values": [Vector2(0, -9), Vector2(-3.39746e-06, -9.5), Vector2(7.15256e-07, -9.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Flip/Sprite2D:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(0.535887, 0.535887, 0.535887),
+"update": 0,
+"values": [Vector2(0.875, 1), Vector2(0.916666, 1.125), Vector2(0.666667, 1.125)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d3ruj"]
+_data = {
+"RESET": SubResource("Animation_ctjtg"),
+"jump": SubResource("Animation_74uh3"),
+"squash": SubResource("Animation_qco2n"),
+"stretch": SubResource("Animation_3p6vn")
+}
+
+[node name="main" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+modulate = Color(0.300781, 0.570313, 0.734375, 1)
+tile_set = SubResource("TileSet_pa4ux")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 65536, 0, 0, 131072, 0, 0, 196608, 0, 0, 262144, 0, 0, 327680, 0, 0, 393216, 0, 0, 393217, 0, 0, 327681, 0, 0, 262145, 0, 0, 196609, 0, 0, 131073, 0, 0, 65537, 0, 0, 458752, 0, 0, 458753, 0, 0, 524289, 0, 0, 524288, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 589833, 0, 0, 589830, 0, 0, 589829, 0, 0, 589828, 0, 0, 589827, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 589832, 0, 0, 589831, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0, 589840, 0, 0, 589841, 0, 0, 524305, 0, 0, 524304, 0, 0, 524303, 0, 0, 589842, 0, 0, 524306, 0, 0, 524307, 0, 0, 589843, 0, 0, 458761, 0, 0, 393225, 0, 0, 393226, 0, 0, 458762, 0, 0, 458764, 0, 0, 393228, 0, 0, 327692, 0, 0, 262156, 0, 0, 458765, 0, 0, 327693, 0, 0, 393229, 0, 0, 262157, 0, 0, 524308, 0, 0, 589844, 0, 0, 589845, 0, 0, 589846, 0, 0, 589847, 0, 0, 589848, 0, 0, 524312, 0, 0, 524311, 0, 0, 524310, 0, 0, 524309, 0, 0, 458768, 0, 0, 393232, 0, 0, 131088, 0, 0, 131089, 0, 0, 131090, 0, 0, 196626, 0, 0, 262162, 0, 0, 327698, 0, 0, 393234, 0, 0, 458770, 0, 0, 262160, 0, 0, 327696, 0, 0, 327697, 0, 0, 262161, 0, 0, 196625, 0, 0, 393233, 0, 0, 458769, 0, 0, 196624, 0, 0, 131091, 0, 0, 131092, 0, 0, 131093, 0, 0, 196629, 0, 0, 262165, 0, 0, 327701, 0, 0, 393237, 0, 0, 458773, 0, 0, 196628, 0, 0, 262163, 0, 0, 327699, 0, 0, 393235, 0, 0, 458771, 0, 0, 458772, 0, 0, 393236, 0, 0, 327700, 0, 0, 262164, 0, 0, 196627, 0, 0, 1, 0, 0, -65536, 0, 0, -65535, 0, 0, 65552, 0, 0, 16, 0, 0, -65520, 0, 0, -65519, 0, 0, 18, 0, 0, 65554, 0, 0, 17, 0, 0, 65553, 0, 0, -65518, 0, 0, -65517, 0, 0, 19, 0, 0, 20, 0, 0, -65516, 0, 0, 65555, 0, 0, 65556, 0, 0, 65557, 0, 0, -65515, 0, 0, 21, 0, 0, 262149, 0, 0, 262150, 0, 0, 131075, 0, 0, 131076, 0, 0, 65543, 0, 0)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(144, 79)
+zoom = Vector2(4, 4)
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(60, 100)
+script = ExtResource("2_hvd10")
+
+[node name="Flip" type="Node2D" parent="Player"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Flip"]
+position = Vector2(0, -9)
+texture = ExtResource("3_ppt0t")
+hframes = 24
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_ghcy0")
+
+[node name="Animation Players" type="Node" parent="Player"]
+
+[node name="Sprite" type="AnimationPlayer" parent="Player/Animation Players"]
+libraries = {
+"": SubResource("AnimationLibrary_0np00")
+}
+
+[node name="Squash-Stretch" type="AnimationPlayer" parent="Player/Animation Players"]
+libraries = {
+"": SubResource("AnimationLibrary_d3ruj")
+}
